@@ -14,10 +14,23 @@
 
 
             <aside>
+            <?php
+            
+                /**
+                 * Etape 3: récupérer le nom de l'utilisateur
+                 */
+               $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
+
+                $laQuestionEnSql = "SELECT * FROM `users` WHERE id= '$userId' ";
+                $lesInformations = $mysqli->query($laQuestionEnSql);
+                $user = $lesInformations->fetch_assoc();
+                //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
+                //echo "<pre>" . print_r($user, 1) . "</pre>";
+                ?>
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez les informations de l'utilisatrice
+                    <p>Sur cette page vous trouverez les informations de l'utilisatrice <?php echo $user['alias'] ?>
                         n° <?php echo intval($_GET['user_id']) ?></p>
 
                 </section>
@@ -34,11 +47,8 @@
                 $userId = intval($_GET['user_id']);
 
                 /**
-                 * Etape 2: se connecter à la base de donnée
-                 */
-                $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
 
-                /**
+                
                  * Etape 3: récupérer le nom de l'utilisateur
                  */
                 $laQuestionEnSql = "
@@ -64,21 +74,21 @@
                  * Etape 4: à vous de jouer
                  */
                 //@todo: afficher le résultat de la ligne ci dessous, remplacer les valeurs ci-après puiseffacer la ligne ci-dessous
-                echo "<pre>" . print_r($user, 1) . "</pre>";
+                //echo "<pre>" . print_r($user, 1) . "</pre>";
                 ?>                
                 <article class='parameters'>
                     <h3>Mes paramètres</h3>
                     <dl>
                         <dt>Pseudo</dt>
-                        <dd>Félicie</dd>
+                        <dd><?php echo $user ['alias']?></dd>
                         <dt>Email</dt>
-                        <dd>felicie@test.org</dd>
+                        <dd><?php echo $user ['email']?></dd>
                         <dt>Nombre de message</dt>
-                        <dd>42</dd>
+                        <dd><?php echo $user ['totalpost']?></dd>
                         <dt>Nombre de "J'aime" donnés </dt>
-                        <dd>12</dd>
+                        <dd><?php echo $user ['totalgiven']?></dd>
                         <dt>Nombre de "J'aime" reçus</dt>
-                        <dd>53</dd>
+                        <dd><?php echo $user ['totalrecieved']?></dd>
                     </dl>
 
                 </article>
