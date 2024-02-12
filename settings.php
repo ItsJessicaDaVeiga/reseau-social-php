@@ -48,7 +48,6 @@
 
                 /**
 
-                
                  * Etape 3: récupérer le nom de l'utilisateur
                  */
                 $laQuestionEnSql = "
