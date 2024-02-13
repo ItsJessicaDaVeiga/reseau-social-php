@@ -31,6 +31,7 @@
                   // plus généralement : https://www.php.net/manual/fr/mysqli.query.php
                  */
 
+
                 // Etape 1: Ouvrir une connexion avec la base de donnée.
                 $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
                 //verification
@@ -49,7 +50,8 @@
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
-                    users.alias as author_name,  
+                    users.alias as author_name,
+                    users.id as author_id,  
                     count(likes.id) as like_number,  
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
@@ -89,7 +91,7 @@
                         <h3>
                             <time><?php echo $post['created'] ?></time>
                         </h3>
-                        <address><?php echo $post['author_name'] ?></address>
+                        <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>
